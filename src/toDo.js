@@ -1,7 +1,11 @@
-const listTodoElements = []; 
+let listTodoElements = []; 
 
-const handleId = function(){
-    const id = 0;
+let lastId;
+
+let handleId = (()=>{
+    let id = 0;
+    let lastIdPr = 0; 
+
 
     let getId = function(){
         return id;
@@ -10,30 +14,40 @@ const handleId = function(){
         id++;
     }
     
+    function resetId(){
+        id = 0;
+    } 
 
-    return {getId, setId}
-}
+    function handleIdProject(){
+        if(idPr != lastId){
+            resetId();
+        }    
+    }
 
-let thisId = handleId.getId;
+    return {getId, setId, resetId}
+})();
 
+let thisId = handleId.getId();
+console.log(thisId);
 
 const setNote = function(listElement, note){
     listElement.note = note;
 }
 
-const setCheck = function(listElement, check){
+const setFinished = function(listElement, check){
     listElement.check = check;
 }
 
 
-function getListElement(id){
+function getListElement(project, id){
 
-    let element = listTodoElements.map( function(element){    
+    let currentElemet; 
+    project.tasks.forEach( function(element){    
         if(element.id == id){
-            return element;
+            currentElemet =  element;
         };
-    }) 
-    return element;
+    });
+    return currentElemet;
 
 }
 
@@ -42,23 +56,49 @@ function getListTodoElements(){
 } 
 
 
-function createTodoElement (title, description, dueDate="", priority=0, finished=false, notes="", kind="general"){
-    const id = thisId;
+function createTodoElement ({title, description, dueDate="", priority=0, notes="", kind="general"}, project){
+    
+    
+    console.log(project.id) 
+    let id = handleId.getId();
     title = title; 
     description = description; 
     dueDate = dueDate;
     priority = priority; 
-    finished = finished; 
+    finished = false; 
     notes = notes;
     kind = kind;
 
-    listTodoElements.push({id, title, description, dueDate, priority, finished, notes, kind});
     
+    
+    project.tasks.push({id, title, description, dueDate, priority, finished, notes, kind});
+    
+    handleId.setId();
 } 
 
-/* Object.assign(createTodoElement, setNote); */
+
+
+function deleteTask(project, id){
+
+   
+
+    let deleteElement = getListElement(project, id);
+    
+    if(project.tasks.length > 1){
+        
+        project.tasks.splice(1, id);    
+        
+    }else{
+        project.tasks = [];
+    }
+
+    
+    
+
+}
 
 
 
 
-export {createTodoElement, setNote, setCheck, getListTodoElements, handleId}
+export {createTodoElement, setNote, setFinished, getListTodoElements, deleteTask } 
+

@@ -4,21 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <form action="" method="post">
-        <h2>crear una tarea</h2>
-        <input type="text" name="title">
-        <input type="text" name="description">
-        <input type="text" name="dueDate">
-        <input type="text" name="priority">
-        <input type="text" name="check">
-        <input type="text" name="notes">
-        <input type="text" name="kind">
-        <button id="btn-sent">send</button>
-    </form>
-
-    <script src="todo.js"></script>
+    <header>
+        <h2>To Do</h2>
+    </header>
+    <div class="container">
+        <aside>
+            <p>Projects:</p>
+            <button id="btn-create-project">create project</button>
+            <div id="list-project">
+                
+            </div>
+        </aside>
+        <div id="content">
+            
+        </div>
+        <div id="root">
+            
+        </div>
+    </div>
+        <script type="module" src="index.js"></script>
 </body>
 </html>
