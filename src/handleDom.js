@@ -1,4 +1,4 @@
-import { deleteTask } from "./toDo.js";
+
 
 const contet = document.querySelector("#content");
 const containerProjects = document.querySelector("#list-project");
@@ -57,20 +57,7 @@ if(!root.contains(form)){
 }
 }
 
-function handleTasks(project){
-   
-    document.querySelectorAll("#delete-item").forEach(element =>{
-        element.addEventListener("click", (e)=>{
-            
-            let taskId = e.target.dataset.index;
-            console.log(taskId);
-            deleteTask(project, taskId);
-            displayTaks(project); 
-            
-        });
 
-    });
-}
 
 function displayTaks(project){
    
@@ -145,9 +132,12 @@ function clearContent(params) {
 
 //projects:
 
+
+
 function displayListProjects(projects){
     containerProjects.innerHTML = "";
     
+    console.log(projects)
     projects.forEach((element)=>{
         const project = document.createElement("div"); 
         project.classList.add("container-project"); 
@@ -156,10 +146,15 @@ function displayListProjects(projects){
         const title = document.createElement("h3"); 
         title.textContent = element.title; 
         
+        const button = document.createElement("button"); 
+        button.setAttribute('id', 'delete');
+        button.textContent = "delete";
+
         project.appendChild(title);
+        project.appendChild(button);
         containerProjects.appendChild(project);
     }); 
-    
+   
 }   
 function displayFormProject(){
 

@@ -1,25 +1,34 @@
-let projects = []; 
+import { retrieveProject, storeProject, retrieveIdProject, storeIdProject } from './persist.js';
+
+let projects = retrieveProject(); 
 
 let handleId = (()=>{
 
-    let id = 0; 
+    let id = retrieveIdProject(); 
 
     function setId(){
         id++;
+        storeIdProject(id)
     } 
 
     function getId(){
+        if(id == null){
+            return 0;
+        }
         return id;
     }
 
     return { setId, getId }
 })();
 
-function setProjects(retriveProjects){
-    projects = retriveProjects;
+function setProjects(retrieveListProjects){
+    projects = retrieveListProjects;
 }
 
 function getListProjects(){
+    if(projects == null){
+        return [];
+    }
     return projects;
 } 
 
@@ -51,4 +60,16 @@ function setTask(project, task){
     project.tasks.push(task);
 } 
 
-export { setProjects, getListProjects, createProject, setTask, getProject }
+function deleteProject(id) {
+    const elementToDelete = getProject(id);
+    console.log(elementToDelete) 
+    let elementsFiltered = projects.filter(element => element != elementToDelete ); 
+    projects = elementsFiltered;
+    storeProject(elementsFiltered);
+    console.log(elementsFiltered)
+    
+    
+
+}
+
+export { setProjects, getListProjects, createProject, setTask, getProject, deleteProject }

@@ -125,10 +125,38 @@ localStorage provides a mechanism to store key/values pairs in the browser.
 */
 
 
-function storeData(){
 
+/* let arr = [0, 1, 2]; 
+
+localStorage.setItem("randomArr", JSON.stringify(arr)); 
+
+console.log(JSON.parse(localStorage.getItem("randomArr")));
+
+
+ */
+
+
+function storeProject(data){
+    console.log(data);
+    localStorage.setItem("project", JSON.stringify(data));
 }
 
-function retriveData(){
+function retrieveProject(){
+    return JSON.parse(localStorage.getItem("project"));
+} 
 
+function storeIdProject(id){
+    localStorage.setItem("id", JSON.stringify(id));
+} 
+
+function retrieveIdProject(){
+    return JSON.parse(localStorage.getItem("id"));
 }
+
+
+function clearStorage(){
+    localStorage.clear()
+}
+
+
+export { storeProject, retrieveProject, retrieveIdProject,storeIdProject,  clearStorage }

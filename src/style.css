@@ -1,12 +1,22 @@
+:root{
+    --main-color: blue;
+}
+
+
+
 #root{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+
+    
 }
 body{
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
+
 }
 
 
@@ -27,14 +37,22 @@ header{
     aside{
         grid-column: 1/4;
         grid-row: 1/9; 
-        background-color: gray;
+        background-color: none;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
         button{
+            color: white;
+            width: 3rem;
+            border-radius: 3%;
             border-radius: 3px;
-            box-shadow: 1px 1px white;
+            border: none;
+            background-color: blue;
+            box-shadow: 1px 1px black;
+        }
+        button:hover{
+            box-shadow: none;
         }
         #list-project{
             width: 100%;
