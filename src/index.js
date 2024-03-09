@@ -12,11 +12,17 @@ const handleProjects = (function(){
 
     
     function displayProjects(){
+
+        const asideNode = document.getElementsByTagName("aside");
+        console.log(asideNode)
         //cada vez que se llama se actuliza a projects
         projects = getListProjects(); 
         storeProject(projects);
 
         displayListProjects(projects);
+ 
+        selectProject();
+        
         const deleteButtons = document.querySelectorAll("#delete"); 
         deleteButtons.forEach(element =>{
             element.addEventListener("click", ()=>{
@@ -65,16 +71,37 @@ const handleProjects = (function(){
                 
             });
     
-        });
+        }); 
+
+        document.querySelectorAll("#finished-item").forEach(element => {
+            element.addEventListener("click", e =>{
+                let taskId = e.target.dataset.index;
+                console.log("hola: " + taskId);
+            })  
+
+        })
+
     }
     function handleFormTask(project){
         //manejamos el formulario de tareas de un proyecto en especifico
         //selecciono todo los elementos, crea una nueva tarea y lo guardo en el arreglo 
         //de tareas del elemento que lo llamo, 
+
+        
+
         const newElement = {}; 
         const buttonCreate = document.querySelector("#btn-sent"); 
+        const buttonCancel = document.querySelector(".btn-cancel"); 
         const thisElement = project;
-        
+
+
+
+        buttonCancel.addEventListener("click", (e)=>{
+            e.preventDefault();
+            document.querySelector("#create-task").reset();
+            closeModal();
+        })
+
         buttonCreate.addEventListener("click", (e)=>{
             e.preventDefault(); 
             const title = document.querySelector("#title").value; 
@@ -87,7 +114,7 @@ const handleProjects = (function(){
             
             console.log("index/handlefromtask on send");
             console.log(thisElement);
-
+            closeModal();
             displayTaks(thisElement);
             handleTasks(project)
 
@@ -99,14 +126,18 @@ const handleProjects = (function(){
     function selectProject(){
         let selectedProject = "";
         document.addEventListener("click", (e)=>{
+            if(e.target.classList.contains("container-project")){ 
+                document.querySelectorAll(".container-project").forEach(element => element.classList.remove("selected"));
+                e.target.classList.add("selected");
+                
 
-            
-            if(e.target.classList.contains("container-project")){
                 selectedProject = getProject(e.target.dataset.index);
+                console.log(selectedProject)
                 renderFormTask();
                 handleFormTask(selectedProject);
                 displayTaks(selectedProject);
-                
+                handleTasks(selectedProject);
+            
             }
         })
         return selectedProject;

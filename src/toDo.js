@@ -65,13 +65,13 @@ function createTodoElement ({title, description, dueDate="", priority=0, notes="
     description = description; 
     dueDate = dueDate;
     priority = priority; 
-    finished = false; 
+ 
     notes = notes;
     kind = kind;
 
     
     
-    project.tasks.push({id, title, description, dueDate, priority, finished, notes, kind});
+    project.tasks.push({id, title, description, dueDate, priority, notes, kind});
     
     handleId.setId();
 } 

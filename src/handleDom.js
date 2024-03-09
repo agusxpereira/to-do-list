@@ -7,16 +7,24 @@ const body = document.body;
 
 
 function renderFormTask(){
-    const root = document.querySelector("#root"); 
+    const root = document.body; 
 
+    const divForm = document.createElement("div"); 
+    divForm.classList.add("modal");
+    divForm.classList.add("see");
     const form = document.createElement("form");
     form.setAttribute('id', 'create-task'); 
 
     const h2 = document.createElement("h2");
     h2.textContent = "Crear tarea:"; 
 
-    form.appendChild(h2);
-
+    const buttonCancel = document.createElement("button"); 
+    
+    buttonCancel.classList.add("btn-cancel"); 
+    buttonCancel.textContent = "cancel"; 
+    divForm.appendChild(h2);
+    /* divForm.appendChild(buttonCancel) */
+    
     form.innerHTML = `
 <fieldset class="group-element-input">
     <legend for="title">Title *</legend>
@@ -33,25 +41,22 @@ function renderFormTask(){
 </fieldset>
 <fieldset class="group-element-input">
     <legend for="priority">priority</legend>
-    <input type="number" name="priority" id="priority">
+    <select name="priority" id="priority">
+        <option value="low">low</option>
+        <option value="medium" selected>medium</option>
+        <option value="high">high</option>   
+    </select>
 </fieldset>
-<fieldset class="group-element-input">
-    <legend for="finished">finished</legend>
-    <input type="checkbox" name="finished" id="finished">
-</fieldset>
-<fieldset class="group-element-input">
-    <legend for="notes">notes</legend>
-    <input type="text" name="notes" id="notes">
-</fieldset>
-<fieldset class="group-element-input">
-    <legend for="kind">kind</legend>
-    <input type="text" name="kind" id="kind">
-</fieldset>
-<button id="btn-sent">send</button>"
+
+
+<button id="btn-sent">send</button>
+<button class="btn-cancel">cancel</button>
 `;
-if(!root.contains(form)){
-    root.innerHTML = "";
-    root.appendChild(form)
+    divForm.appendChild(form);
+
+if(!root.contains(divForm)){
+    
+    root.appendChild(divForm);
    
     
 }
@@ -119,7 +124,7 @@ function displayTaks(project){
     });
     
     contet.appendChild(toDoContainer);
-    handleTasks(thisProject);
+    
    
 } 
 
